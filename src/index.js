@@ -2,7 +2,16 @@ import browserslist from 'browserslist'
 
 // convert the browserslist field in package.json to
 // esbuild compatible array of browsers
-export default function browserslistToEsbuild(browserslistConfig, options = {}) {
+export default function browserslistToEsbuild(browserslistConfig, options) {
+  if (
+    options === undefined &&
+    typeof browserslistConfig === 'object' &&
+    !Array.isArray(browserslistConfig)
+  ) {
+    options = browserslistConfig
+    browserslistConfig = undefined
+  }
+
   if (!browserslistConfig) {
     // the path from where the script is run
     const path = process.cwd()

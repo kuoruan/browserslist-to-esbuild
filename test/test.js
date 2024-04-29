@@ -84,6 +84,18 @@ test('the options argument works', (t) => {
   cwdStub.restore()
 })
 
+test('works with only options', (t) => {
+  const browserslistrcDir = path.resolve(__dirname, './fixtures/browserslistrc')
+
+  // makes process.cwd() use that folder
+  if (!t.context.cwd) t.context.cwd = sinon.stub(process, 'cwd')
+  const cwdStub = t.context.cwd.returns(browserslistrcDir)
+
+  t.deepEqual(browserslistToEsbuild({ env: 'ssr' }), ['node12.22'])
+
+  cwdStub.restore()
+})
+
 test('works with ios', (t) => {
   const target = browserslistToEsbuild('ios >= 9')
 

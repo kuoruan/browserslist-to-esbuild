@@ -5,4 +5,8 @@ declare function browserslistToEsbuild(
   options?: browserslist.Options
 ): string[]
 
+declare function browserslistToEsbuild(
+  options?: browserslist.Options
+): string[]
+
 export default browserslistToEsbuild
